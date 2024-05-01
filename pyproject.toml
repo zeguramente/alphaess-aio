@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+description = "Sends get and post requests to available AlphaCloud API endpoints."
+name = "alphaess-aio"
+dynamic = ["version"]
+
+dependencies = ["aiohttp==3.9.3", "pydantic==2.6.4"]
+
+
+requires-python = ">=3.10"
+authors = [{ name = "Markus Ziegler", email = "frage_n@web.de" }]
+maintainers = [{ name = "Markus Ziegler", email = "frage_n@web.de" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["alphaess", "api"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+]
+
+[project.urls]
+Repository = "https://github.com/zeguramente/alphaess-aio"
+
+[project.optional-dependencies]
+test = ["pytest"]
+lint = ["ruff>=0.4.2"]
