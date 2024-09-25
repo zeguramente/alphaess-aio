@@ -8,3 +8,17 @@ Code generated out of API description.
 ## Prerequisites
 
 Register account at https://open.alphaess.com/. You will recieve an AppID and AppSecret needed for authentification.
+
+## How to use
+
+```python
+from alphaessaio import AlphaEssAPI, AlphaEssAuth
+
+# setup auth
+auth = AlphaEssAuth(appid="your_app_id", appsecret="your_app_secret")
+
+#init api
+alphaess_api = AlphaEssAPI(auth)
+
+alphaess.
+```
