@@ -20,8 +20,8 @@ class AlphaEssRequestError(Exception):
 
 @dataclass
 class AlphaEssAuth:
-    appid: str = field(repr=False)
-    appsecret: str = field(repr=False)
+    appid: str
+    appsecret: pydantic.SecretStr
 
     def _get_signature(self, timestamp) -> str:
         return str(
@@ -53,7 +53,8 @@ class AlphaEssAPI:
             async with session.post(url, headers=headers, json=params) as resp:
                 return await self._evaluate_response(resp)
 
-    async def _evaluate_response(self, resp: aiohttp.ClientResponse) -> dict:
+    @staticmethod
+    async def _evaluate_response(resp: aiohttp.ClientResponse) -> dict:
         try:
             data = await resp.json()
             logger.debug(f"api response: {data}")

@@ -93,25 +93,7 @@ class DataEvChargerCurrentsBySn(BaseModel):
 
 
 class EvChargerCurrentsBySn(BaseModel):
-    "Response data model for getEvChargerCurrentsBySn"
-
-    code: int = Field(..., alias="code", description="Return Code")
-    info: str = Field(
-        ..., validation_alias=AliasChoices("info", "msg"), description="Return Message"
-    )
-    data: DataEvChargerCurrentsBySn = Field(..., alias="data", description="Data")
-
-    model_config = ConfigDict(extra="allow")
-
-    @model_validator(mode="after")
-    def check_extras(self):
-        if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
-        return self
-
-
-class EvChargerCurrentsBySn(BaseModel):
-    "Response data model for setEvChargerCurrentsBySn"
+    "Response data model for set and getEvChargerCurrentsBySn"
 
     code: int = Field(..., alias="code", description="Return Code")
     info: str = Field(
@@ -486,25 +468,7 @@ class DataChargeConfigInfo(BaseModel):
 
 
 class ChargeConfigInfo(BaseModel):
-    "Response data model for getChargeConfigInfo"
-
-    code: int = Field(..., alias="code", description="Return Code")
-    info: str = Field(
-        ..., validation_alias=AliasChoices("info", "msg"), description="Return Message"
-    )
-    data: DataChargeConfigInfo = Field(..., alias="data", description="Return Data")
-
-    model_config = ConfigDict(extra="allow")
-
-    @model_validator(mode="after")
-    def check_extras(self):
-        if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
-        return self
-
-
-class ChargeConfigInfo(BaseModel):
-    "Response data model for updateChargeConfigInfo"
+    "Response data model for update and getChargeConfigInfo"
 
     code: int = Field(..., alias="code", description="Return Code")
     info: str = Field(
@@ -553,25 +517,7 @@ class DataDisChargeConfigInfo(BaseModel):
 
 
 class DisChargeConfigInfo(BaseModel):
-    "Response data model for getDisChargeConfigInfo"
-
-    code: int = Field(..., alias="code", description="Return Code")
-    info: str = Field(
-        ..., validation_alias=AliasChoices("info", "msg"), description="Return Message"
-    )
-    data: DataDisChargeConfigInfo = Field(..., alias="data", description="Return Data")
-
-    model_config = ConfigDict(extra="allow")
-
-    @model_validator(mode="after")
-    def check_extras(self):
-        if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
-        return self
-
-
-class DisChargeConfigInfo(BaseModel):
-    "Response data model for updateDisChargeConfigInfo"
+    "Response data model for update and getDisChargeConfigInfo"
 
     code: int = Field(..., alias="code", description="Return Code")
     info: str = Field(
