@@ -25,5 +25,5 @@ classifiers = [
 Repository = "https://github.com/zeguramente/alphaess-aio"
 
 [project.optional-dependencies]
-test = ["pytest"]
+test = ["pytest", "pytest-mock", "pytest-asyncio", "pytest-aiohttp"]
 lint = ["ruff>=0.4.2"]
