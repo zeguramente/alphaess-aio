@@ -1,6 +1,6 @@
 """Sending requests to AlphaESS API"""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import logging
 import time
 import hashlib

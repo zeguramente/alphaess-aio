@@ -1,6 +1,5 @@
 from unittest import mock
 import pytest
-import aiohttp
 from alphaessaio import client
 
 # values taken from docs
