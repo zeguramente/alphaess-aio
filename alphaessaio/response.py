@@ -13,7 +13,7 @@ class DataSn(BaseModel):
 
     @model_validator(mode="after")
     def check_extras(self):
-        logging.warning(f"extra fields detected: {self.model_extra}")
+        logging.debug(f"extra fields detected: {self.model_extra}")
         return self
 
 
@@ -24,7 +24,7 @@ class DataVerificationCode(BaseModel):
 
     @model_validator(mode="after")
     def check_extras(self):
-        logging.warning(f"extra fields detected: {self.model_extra}")
+        logging.debug(f"extra fields detected: {self.model_extra}")
         return self
 
 
@@ -35,7 +35,7 @@ class DataControlEvCharger(BaseModel):
 
     @model_validator(mode="after")
     def check_extras(self):
-        logging.warning(f"extra fields detected: {self.model_extra}")
+        logging.debug(f"extra fields detected: {self.model_extra}")
         return self
 
 
@@ -52,7 +52,7 @@ class DataEvChargerConfigList(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -72,7 +72,7 @@ class EvChargerConfigList(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -88,7 +88,7 @@ class DataEvChargerCurrentsBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -106,7 +106,7 @@ class EvChargerCurrentsBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -124,7 +124,7 @@ class DataEvChargerStatusBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -144,7 +144,7 @@ class EvChargerStatusBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -162,7 +162,7 @@ class ControlEvCharger(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -205,7 +205,7 @@ class DataSumDataForCustomer(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -223,7 +223,7 @@ class SumDataForCustomer(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -240,7 +240,7 @@ class PevDetail(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -256,7 +256,7 @@ class PgridDetail(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -274,7 +274,7 @@ class PpvDetail(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -307,7 +307,7 @@ class DataLastPowerData(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -331,7 +331,7 @@ class LastPowerData(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -360,7 +360,7 @@ class DataOneDayPowerBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -380,7 +380,7 @@ class OneDayPowerBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -414,7 +414,7 @@ class DataOneDateEnergyBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -432,7 +432,7 @@ class OneDateEnergyBySn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -463,7 +463,7 @@ class DataChargeConfigInfo(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -481,7 +481,7 @@ class ChargeConfigInfo(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -512,7 +512,7 @@ class DataDisChargeConfigInfo(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -530,7 +530,7 @@ class DisChargeConfigInfo(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -548,7 +548,7 @@ class VerificationCode(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -566,7 +566,7 @@ class Sn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -584,7 +584,7 @@ class BindSn(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -614,7 +614,7 @@ class DataEssList(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
 
 
@@ -632,5 +632,5 @@ class EssList(BaseModel):
     @model_validator(mode="after")
     def check_extras(self):
         if self.model_extra:
-            logging.warning(f"extra fields detected: {self.model_extra }")
+            logging.debug(f"extra fields detected: {self.model_extra }")
         return self
