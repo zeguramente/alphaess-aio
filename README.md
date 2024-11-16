@@ -12,6 +12,7 @@ Register account at https://open.alphaess.com/. You will recieve an AppID and Ap
 ## How to use
 
 ```python
+import asyncio
 from alphaessaio import AlphaEssAPI, AlphaEssAuth
 
 # setup auth
@@ -20,5 +21,5 @@ auth = AlphaEssAuth(appid="your_app_id", appsecret="your_app_secret")
 #init api
 alphaess_api = AlphaEssAPI(auth)
 
-alphaess.
+ess_list = asyncio.run(alphaess_api.get_ess_list())
 ```
