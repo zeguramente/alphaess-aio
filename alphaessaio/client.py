@@ -18,15 +18,16 @@ class AlphaEssRequestError(Exception):
         super().__init__(message)
 
 
-@dataclass
-class AlphaEssAuth:
+class AlphaEssAuth(pydantic.BaseModel):
     appid: str
     appsecret: pydantic.SecretStr
 
     def _get_signature(self, timestamp) -> str:
         return str(
             hashlib.sha512(
-                (self.appid + self.appsecret + timestamp).encode("ascii")
+                (f"{self.appid}{self.appsecret.get_secret_value()}{timestamp}").encode(
+                    "ascii"
+                )
             ).hexdigest()
         )
 

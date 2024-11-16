@@ -19,7 +19,7 @@ def mocked_response(request):
 
 @pytest.fixture
 def auth() -> client.AlphaEssAuth:
-    return client.AlphaEssAuth(MY_TEST_APP_ID, MY_TEST_SECRET)
+    return client.AlphaEssAuth(appid=MY_TEST_APP_ID, appsecret=MY_TEST_SECRET)
 
 
 @pytest.fixture
