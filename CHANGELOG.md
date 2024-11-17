@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v0.1.2 (2024-11-17)
+
+### Bug Fixes
+
+* fix: add build ([`bb41101`](https://github.com/zeguramente/alphaess-aio/commit/bb41101fcd539a4ce0aa19e9612e949d2b507a95))
+
+
 ## v0.1.1 (2024-11-17)
 
 ### Bug Fixes
