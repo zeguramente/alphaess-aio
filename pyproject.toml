@@ -5,11 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 description = "Sends get and post requests to available AlphaCloud API endpoints."
 name = "alphaess-aio"
-dynamic = ["version"]
-
 dependencies = ["aiohttp==3.9.3", "pydantic==2.6.4"]
-
-
 requires-python = ">=3.10"
 authors = [{ name = "Markus Ziegler", email = "frage_n@web.de" }]
 maintainers = [{ name = "Markus Ziegler", email = "frage_n@web.de" }]
@@ -27,3 +23,6 @@ Repository = "https://github.com/zeguramente/alphaess-aio"
 [project.optional-dependencies]
 test = ["pytest", "pytest-mock", "pytest-asyncio", "pytest-aiohttp"]
 lint = ["ruff>=0.4.2"]
+
+[tool.semantic_release]
+version_variable = "alphaessaio/__init__.py"
