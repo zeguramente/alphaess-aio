@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v0.1.1 (2024-11-17)
+
+### Bug Fixes
+
+* fix: wheels ([`d6b0185`](https://github.com/zeguramente/alphaess-aio/commit/d6b01851981308107ed0e376a1521359b48a71f9))
+
+
 ## v0.1.0 (2024-11-17)
 
 ### Features
