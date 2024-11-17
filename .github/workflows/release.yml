@@ -15,9 +15,6 @@ jobs:
       contents: write
 
     steps:
-      # Note: we need to checkout the repository at the workflow sha in case during the workflow
-      # the branch was updated. To keep PSR working with the configured release branches,
-      # we force a checkout of the desired release branch but at the workflow sha HEAD.
       - name: Setup | Checkout Repository at workflow sha
         uses: actions/checkout@v4
         with:
@@ -28,9 +25,16 @@ jobs:
         run: |
           git checkout -B ${{ github.ref_name }} ${{ github.sha }}
 
+      - name: Setup | Install dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel build python-semantic-release
+
+      - name: Build | Create distribution
+        run: |
+          python -m build
+
       - name: Action | Semantic Version Release
         id: release
-        # Adjust tag with desired version if applicable.
         uses: python-semantic-release/python-semantic-release@v9.12.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
