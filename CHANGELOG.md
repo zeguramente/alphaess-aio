@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.3 (2024-12-07)
+
+### Bug Fixes
+
+* fix: semantic release ([`cd3cd6c`](https://github.com/zeguramente/alphaess-aio/commit/cd3cd6cf745aac332ccacd71d22bcf9126d27df6))
+
+### Unknown
+
+* Merge pull request #2 from zeguramente/dev
+
+fix: semantic release ([`c9c73af`](https://github.com/zeguramente/alphaess-aio/commit/c9c73afcf7e7590ca290fcef11d567294a2c4e0d))
+
+
 ## v0.1.2 (2024-11-17)
 
 ### Bug Fixes
