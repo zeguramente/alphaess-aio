@@ -29,10 +29,6 @@ jobs:
         run: |
           pip install --upgrade pip setuptools wheel build python-semantic-release
 
-      - name: Build | Create distribution
-        run: |
-          python -m build
-
       - name: Action | Semantic Version Release
         id: release
         uses: python-semantic-release/python-semantic-release@v9.12.0
@@ -40,6 +36,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           git_committer_name: "github-actions"
           git_committer_email: "actions@users.noreply.github.com"
+
+      - name: Build | Create distribution
+        run: |
+          python -m build
 
       - name: Publish | Upload package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

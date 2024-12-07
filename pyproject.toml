@@ -28,5 +28,8 @@ Repository = "https://github.com/zeguramente/alphaess-aio"
 test = ["pytest", "pytest-mock", "pytest-asyncio", "pytest-aiohttp"]
 lint = ["ruff>=0.4.2"]
 
+[tool.setuptools.dynamic]
+version = { attr = "alphaessaio.__version__" }
+
 [tool.semantic_release]
-version_variable = "alphaessaio/__init__.py"
+version_variable = "alphaessaio/__init__.py:__version__"
