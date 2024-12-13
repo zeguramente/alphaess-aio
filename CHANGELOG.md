@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.2.0 (2024-12-13)
+
+### Features
+
+* feat: add specific authentication error. ([`0c5737d`](https://github.com/zeguramente/alphaess-aio/commit/0c5737ddc27d67cc4ead0f0618666b56e3f1a281))
+
+### Unknown
+
+* Merge pull request #7 from zeguramente/dev
+
+feat: add specific authentication error. ([`8c1f3cc`](https://github.com/zeguramente/alphaess-aio/commit/8c1f3cccd58bd5c7bac52c8cc0cae32f810dadcb))
+
+
 ## v0.1.7 (2024-12-13)
 
 ### Bug Fixes
