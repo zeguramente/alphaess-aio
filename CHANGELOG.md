@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.5 (2024-12-13)
+
+### Bug Fixes
+
+* fix: losen requirements ([`d124227`](https://github.com/zeguramente/alphaess-aio/commit/d124227d525bb0eccb5118b852231c9d8e5692b2))
+
+### Unknown
+
+* Merge pull request #4 from zeguramente/dev
+
+fix: losen requirements ([`65a954d`](https://github.com/zeguramente/alphaess-aio/commit/65a954d5f3256cb6b9e7225a91b22b0885a96fd9))
+
+
 ## v0.1.4 (2024-12-13)
 
 ### Bug Fixes
