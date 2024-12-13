@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.6 (2024-12-13)
+
+### Bug Fixes
+
+* fix: downgrade to pydantic 2.1 for beeing compatible with hass. ([`4391a1c`](https://github.com/zeguramente/alphaess-aio/commit/4391a1c41bad27c9b05242ad52d641c9bd77690d))
+
+### Unknown
+
+* Merge pull request #5 from zeguramente/dev
+
+fix: downgrade to pydantic 2.1 for beeing compatible with hass. ([`486c5d1`](https://github.com/zeguramente/alphaess-aio/commit/486c5d19d3ecb4a8642f9d662562e00b380cd996))
+
+
 ## v0.1.5 (2024-12-13)
 
 ### Bug Fixes
