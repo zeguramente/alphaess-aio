@@ -12,12 +12,20 @@ logger = logging.getLogger(__name__)
 
 
 class AlphaEssRequestError(Exception):
+    """Request Error."""
+
     def __init__(self, response_data: dict):
         message = f"Error: {response_data}"
         super().__init__(message)
 
 
+class AlphaEssAuthError(Exception):
+    """Provided AppID and/or AppSecret are invalid."""
+
+
 class AlphaEssAuth(pydantic.BaseModel):
+    """Authentication for AlphaEssOpenAPI"""
+
     appid: str
     appsecret: pydantic.SecretStr
 
@@ -37,17 +45,19 @@ class AlphaEssAuth(pydantic.BaseModel):
 
 
 class AlphaEssAPI:
+    """Send get and post requests to AlphaEssOpenApi."""
+
     def __init__(self, auth: AlphaEssAuth):
         self.auth = auth
 
-    async def _get(self, url, params) -> dict:
+    async def _get(self, url: str, params: str) -> dict:
         headers = self.auth.create_headers()
         async with aiohttp.ClientSession() as session:
             logger.debug(f"Sending get request to {url=} with {params=}")
             async with session.get(url, headers=headers, params=params) as resp:
                 return await self._evaluate_response(resp)
 
-    async def _post(self, url, params) -> dict:
+    async def _post(self, url: str, params: str) -> dict:
         headers = self.auth.create_headers()
         async with aiohttp.ClientSession() as session:
             async with session.post(url, headers=headers, json=params) as resp:
@@ -65,7 +75,14 @@ class AlphaEssAPI:
         if resp.status == 200 and data.get("code", 0) == 200:
             logger.debug(f"Request successful. {resp.url}")
             return data
+
         logger.error(f"Request error: {data=}")
+
+        if resp.status == 200 and data.get("code") == 6007:
+            raise AlphaEssAuthError(
+                "Authentication failed. Check provided AppID and AppSecret."
+            )
+        # other error
         raise AlphaEssRequestError(data)
 
     @pydantic.validate_call
