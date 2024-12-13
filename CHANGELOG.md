@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.7 (2024-12-13)
+
+### Bug Fixes
+
+* fix: pydantic version ([`3485a9f`](https://github.com/zeguramente/alphaess-aio/commit/3485a9fedf79048f1a57eecdfba7a19ffc90ee46))
+
+### Unknown
+
+* Merge pull request #6 from zeguramente/dev
+
+fix: pydantic version ([`b92892a`](https://github.com/zeguramente/alphaess-aio/commit/b92892aab9ef562ffd45aecf3c1e8caf2fc7bda2))
+
+
 ## v0.1.6 (2024-12-13)
 
 ### Bug Fixes
