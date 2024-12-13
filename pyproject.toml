@@ -7,7 +7,7 @@ description = "Sends get and post requests to available AlphaCloud API endpoints
 name = "alphaess-aio"
 dynamic = ["version"]
 
-dependencies = ["aiohttp==3.9.3", "pydantic==2.6.4"]
+dependencies = ["aiohttp>=3.9.3", "pydantic~=2.6.4"]
 
 
 requires-python = ">=3.10"
