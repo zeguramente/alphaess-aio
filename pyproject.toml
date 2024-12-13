@@ -32,4 +32,4 @@ lint = ["ruff>=0.4.2"]
 version = { attr = "alphaessaio.__version__" }
 
 [tool.semantic_release]
-version_variable = "alphaessaio/__init__.py:__version__"
+version_variables = ["alphaessaio/__init__.py:__version__"]

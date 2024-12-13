@@ -4,4 +4,4 @@ from alphaessaio.client import AlphaEssAPI, AlphaEssAuth
 
 __all__ = [AlphaEssAPI, AlphaEssAuth]
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
