@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.1.4 (2024-12-13)
+
+### Bug Fixes
+
+* fix: versioning ([`71d3b21`](https://github.com/zeguramente/alphaess-aio/commit/71d3b21fc43b2559c61b8e06742059db15e60273))
+
+### Unknown
+
+* Merge pull request #3 from zeguramente/dev
+
+fix: versioning ([`b3cf503`](https://github.com/zeguramente/alphaess-aio/commit/b3cf50301a7f049b3b8dd2f14e73c1ec818483a4))
+
+
 ## v0.1.3 (2024-12-07)
 
 ### Bug Fixes
