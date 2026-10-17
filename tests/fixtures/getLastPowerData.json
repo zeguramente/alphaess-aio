@@ -1,0 +1,33 @@
+{
+  "code": 200,
+  "msg": "Success",
+  "data": {
+    "ppv": 3120.0,
+    "ppvDetail": {
+      "ppv1": 1600.0,
+      "ppv2": 1520.0,
+      "ppv3": 0.0,
+      "ppv4": 0.0,
+      "pmeterDc": 0.0
+    },
+    "pload": 840.0,
+    "soc": 72.4,
+    "pgrid": -1450.0,
+    "pgridDetail": {
+      "pmeterL1": -480.0,
+      "pmeterL2": -490.0,
+      "pmeterL3": -480.0
+    },
+    "pbat": -830.0,
+    "prealL1": 760.0,
+    "prealL2": 750.0,
+    "prealL3": 770.0,
+    "pev": 0.0,
+    "pevDetail": {
+      "ev1Power": 0.0,
+      "ev2Power": 0.0,
+      "ev3Power": 0.0,
+      "ev4Power": 0.0
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "code": 200,
+  "msg": "Success",
+  "data": [
+    {
+      "sysSn": "AL0000000000000",
+      "popv": 9.9,
+      "minv": "SMILE-G3-S5",
+      "poinv": 5.0,
+      "cobat": 10.1,
+      "mbat": "SMILE-G3-BAT-10.1P",
+      "surplusCobat": 7.3,
+      "usCapacity": 95.0,
+      "emsStatus": "Normal"
+    }
+  ]
+}

@@ -1,100 +1,231 @@
-from unittest import mock
+import datetime
+
 import pytest
-from alphaessaio import client
 
-# values taken from docs
-MY_TEST_SECRET = "c2d2ef6c047c49678e2c332fb2d74c3c"
-MY_TEST_APP_ID = "alphaef7900ee81dbbce9"
+from alphaessaio.models import (
+    ChargeConfig,
+    ControlMode,
+    DailyEnergy,
+    DischargeConfig,
+    EssSystem,
+    EvCharger,
+    EvChargerCurrent,
+    EvChargerState,
+    EvChargerStatus,
+    LastPowerData,
+    PowerSample,
+    SystemSummary,
+)
+from tests.helpers import FIXTURE_EVCHARGER_SN, FIXTURE_SYS_SN
 
-
-@pytest.fixture
-def mocked_response(request):
-    status, data = request.param
-    mocked_client_response = mock.MagicMock(spec=client.aiohttp.ClientResponse)
-    mocked_client_response.status = status
-    mocked_client_response.json.return_value = data
-
-    return mocked_client_response
-
-
-@pytest.fixture
-def auth() -> client.AlphaEssAuth:
-    return client.AlphaEssAuth(appid=MY_TEST_APP_ID, appsecret=MY_TEST_SECRET)
+QUERY_DATE = datetime.date(2024, 6, 1)
 
 
-@pytest.fixture
-def alphaess_api(auth: client.AlphaEssAuth, mocker) -> client.AlphaEssAPI:
-    return client.AlphaEssAPI(auth)
-
-
-def test_create_headers_works(auth: client.AlphaEssAuth, mocker):
-    mocked_timestamp = "1676353875"
-    mocker.patch("alphaessaio.client.time.time", return_value=mocked_timestamp)
-    assert auth.create_headers() == {
-        "appId": MY_TEST_APP_ID,
-        "timeStamp": mocked_timestamp,
-        "sign": "0f023c2287b8f6b21b0994947465f8e"
-        "9de0e1542567b1735bdc6c427336b9b6406285cd9"
-        "4f9215c3e9af958df37fb11c2c9fe792713d8afbdb8c463359a1add8",
-    }
+_GET_CASES = [
+    ("get_ess_list", {}, "getEssList", {}, EssSystem),
+    (
+        "get_last_power_data",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getLastPowerData",
+        {"sysSn": FIXTURE_SYS_SN},
+        LastPowerData,
+    ),
+    (
+        "get_one_day_power_by_sn",
+        {"sys_sn": FIXTURE_SYS_SN, "query_date": QUERY_DATE},
+        "getOneDayPowerBySn",
+        {"sysSn": FIXTURE_SYS_SN, "queryDate": "2024-06-01"},
+        PowerSample,
+    ),
+    (
+        "get_one_date_energy_by_sn",
+        {"sys_sn": FIXTURE_SYS_SN, "query_date": QUERY_DATE},
+        "getOneDateEnergyBySn",
+        {"sysSn": FIXTURE_SYS_SN, "queryDate": "2024-06-01"},
+        DailyEnergy,
+    ),
+    (
+        "get_sum_data_for_customer",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getSumDataForCustomer",
+        {"sysSn": FIXTURE_SYS_SN},
+        SystemSummary,
+    ),
+    (
+        "get_charge_config_info",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getChargeConfigInfo",
+        {"sysSn": FIXTURE_SYS_SN},
+        ChargeConfig,
+    ),
+    (
+        "get_dis_charge_config_info",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getDisChargeConfigInfo",
+        {"sysSn": FIXTURE_SYS_SN},
+        DischargeConfig,
+    ),
+    (
+        "get_ev_charger_config_list",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getEvChargerConfigList",
+        {"sysSn": FIXTURE_SYS_SN},
+        EvCharger,
+    ),
+    (
+        "get_ev_charger_currents_by_sn",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "getEvChargerCurrentsBySn",
+        {"sysSn": FIXTURE_SYS_SN},
+        EvChargerCurrent,
+    ),
+    (
+        "get_ev_charger_status_by_sn",
+        {"sys_sn": FIXTURE_SYS_SN, "evcharger_sn": FIXTURE_EVCHARGER_SN},
+        "getEvChargerStatusBySn",
+        {"sysSn": FIXTURE_SYS_SN, "evchargerSn": FIXTURE_EVCHARGER_SN},
+        EvChargerStatus,
+    ),
+]
 
 
 @pytest.mark.parametrize(
-    "mocked_response",
-    [(200, {"data": "something", "code": 200})],
-    indirect=True,
+    ("method_name", "kwargs", "endpoint", "expected_query", "expected_type"),
+    _GET_CASES,
+    ids=[case[0] for case in _GET_CASES],
 )
-@pytest.mark.asyncio
-async def test_evaluate_response_valid(mocked_response):
-    assert await client.AlphaEssAPI._evaluate_response(mocked_response) == {
-        "data": "something",
-        "code": 200,
-    }
+async def test_get_endpoint_sends_query_and_parses_fixture(
+    api, fake_cloud, method_name, kwargs, endpoint, expected_query, expected_type
+):
+    result = await getattr(api, method_name)(**kwargs)
+
+    sent = fake_cloud.last_request()
+    assert (sent.method, sent.endpoint, sent.query) == ("GET", endpoint, expected_query)
+    parsed_items = result if isinstance(result, list) else [result]
+    assert parsed_items
+    assert all(isinstance(item, expected_type) for item in parsed_items)
+    assert not any(item.model_extra for item in parsed_items)
 
 
-@pytest.mark.parametrize(
-    "mocked_response",
-    [
-        (200, {"data": "something"}),
-        (200, {"data": "something", "code": 400}),
-        (400, {"data": "something", "code": 400}),
-    ],
-    indirect=True,
-)
-@pytest.mark.asyncio
-async def test_evaluate_response_invalid(mocked_response):
-    with pytest.raises(client.AlphaEssRequestError):
-        await client.AlphaEssAPI._evaluate_response(mocked_response)
+async def test_get_last_power_data_maps_nested_details(api):
+    power = await api.get_last_power_data(FIXTURE_SYS_SN)
+
+    assert power.ppv == 3120.0
+    assert power.ppv_detail.ppv1 == 1600.0
+    assert power.pgrid_detail.pmeter_l1 == -480.0
+    assert power.pev_detail.ev1_power == 0.0
 
 
-@pytest.mark.asyncio
-async def test_get_called_correctly(alphaess_api, mocker):
-    class MockResponse:
-        def __init__(self, url, text, status):
-            self.url = url
-            self._text = text
-            self.status = status
-
-        async def text(self):
-            return self._text
-
-        async def __aexit__(self, exc_type, exc, tb):
-            pass
-
-        async def __aenter__(self):
-            return self
-
-        async def json(self):
-            return self._text
-
-    mocker.patch.object(
-        client.aiohttp.ClientSession,
-        "get",
-        return_value=MockResponse("bla", {"data": "xyz", "code": 200}, 200),
+async def test_get_ev_charger_status_maps_state_enum(api):
+    (status,) = await api.get_ev_charger_status_by_sn(
+        FIXTURE_SYS_SN, FIXTURE_EVCHARGER_SN
     )
 
-    await alphaess_api._get("bla", "blub")
+    assert status.evcharger_status is EvChargerState.CHARGING
 
 
-def test_post_called_correctly():
-    pass
+_CHARGE_CONFIG = ChargeConfig(
+    bat_high_cap=95,
+    grid_charge=True,
+    time_chaf1=datetime.time(1, 30),
+    time_chae1=datetime.time(5, 45),
+    time_chaf2=datetime.time(0, 0),
+    time_chae2=datetime.time(0, 0),
+)
+_DISCHARGE_CONFIG = DischargeConfig(
+    bat_use_cap=15,
+    ctr_dis=False,
+    time_disf1=datetime.time(17, 0),
+    time_dise1=datetime.time(23, 45),
+    time_disf2=datetime.time(0, 0),
+    time_dise2=datetime.time(0, 0),
+)
+
+
+_POST_CASES = [
+    (
+        "update_charge_config_info",
+        {"sys_sn": FIXTURE_SYS_SN, "config": _CHARGE_CONFIG},
+        "updateChargeConfigInfo",
+        {
+            "sysSn": FIXTURE_SYS_SN,
+            "batHighCap": 95.0,
+            "gridCharge": 1,
+            "timeChaf1": "01:30",
+            "timeChae1": "05:45",
+            "timeChaf2": "00:00",
+            "timeChae2": "00:00",
+        },
+    ),
+    (
+        "update_dis_charge_config_info",
+        {"sys_sn": FIXTURE_SYS_SN, "config": _DISCHARGE_CONFIG},
+        "updateDisChargeConfigInfo",
+        {
+            "sysSn": FIXTURE_SYS_SN,
+            "batUseCap": 15.0,
+            "ctrDis": 0,
+            "timeDisf1": "17:00",
+            "timeDise1": "23:45",
+            "timeDisf2": "00:00",
+            "timeDise2": "00:00",
+        },
+    ),
+    (
+        "set_ev_charger_currents_by_sn",
+        {"sys_sn": FIXTURE_SYS_SN, "currentsetting": 16.0},
+        "setEvChargerCurrentsBySn",
+        {"sysSn": FIXTURE_SYS_SN, "currentsetting": 16.0},
+    ),
+    (
+        "remote_control_ev_charger",
+        {
+            "sys_sn": FIXTURE_SYS_SN,
+            "evcharger_sn": FIXTURE_EVCHARGER_SN,
+            "control_mode": ControlMode.START_CHARGING,
+        },
+        "remoteControlEvCharger",
+        {
+            "sysSn": FIXTURE_SYS_SN,
+            "evchargerSn": FIXTURE_EVCHARGER_SN,
+            "controlMode": 1,
+        },
+    ),
+    (
+        "bind_sn",
+        {"sys_sn": FIXTURE_SYS_SN, "code": "123456"},
+        "bindSn",
+        {"sysSn": FIXTURE_SYS_SN, "code": "123456"},
+    ),
+    (
+        "un_bind_sn",
+        {"sys_sn": FIXTURE_SYS_SN},
+        "unBindSn",
+        {"sysSn": FIXTURE_SYS_SN},
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    ("method_name", "kwargs", "endpoint", "expected_body"),
+    _POST_CASES,
+    ids=[case[0] for case in _POST_CASES],
+)
+async def test_post_endpoint_sends_json_body(
+    api, fake_cloud, method_name, kwargs, endpoint, expected_body
+):
+    result = await getattr(api, method_name)(**kwargs)
+
+    sent = fake_cloud.last_request()
+    assert result is None
+    assert (sent.method, sent.endpoint) == ("POST", endpoint)
+    assert sent.json_body == expected_body
+
+
+async def test_get_verification_code_sends_check_code(api, fake_cloud):
+    await api.get_verification_code(FIXTURE_SYS_SN, "ABCDE")
+
+    assert fake_cloud.last_request().query == {
+        "sysSn": FIXTURE_SYS_SN,
+        "checkCode": "ABCDE",
+    }
