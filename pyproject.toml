@@ -25,7 +25,12 @@ classifiers = [
 Repository = "https://github.com/zeguramente/alphaess-aio"
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-mock", "pytest-asyncio", "pytest-aiohttp"]
+test = [
+    "pytest",
+    "pytest-mock",
+    "pytest-asyncio",
+    "pytest-aiohttp",
+]
 lint = ["ruff>=0.4.2"]
 
 [tool.setuptools.dynamic]
@@ -33,3 +38,12 @@ version = { attr = "alphaessaio.__version__" }
 
 [tool.semantic_release]
 version_variables = ["alphaessaio/__init__.py:__version__"]
+
+[tool.setuptools.packages.find]
+include = ["alphaessaio*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = ["-ra", "--strict-markers"]
