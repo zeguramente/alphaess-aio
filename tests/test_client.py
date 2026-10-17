@@ -16,6 +16,7 @@ from alphaessaio.models import (
     PowerSample,
     SystemSummary,
 )
+from tests.conftest import FakeResponse
 from tests.helpers import FIXTURE_EVCHARGER_SN, FIXTURE_SYS_SN
 
 QUERY_DATE = datetime.date(2024, 6, 1)
@@ -66,13 +67,6 @@ _GET_CASES = [
         DischargeConfig,
     ),
     (
-        "get_ev_charger_config_list",
-        {"sys_sn": FIXTURE_SYS_SN},
-        "getEvChargerConfigList",
-        {"sysSn": FIXTURE_SYS_SN},
-        EvCharger,
-    ),
-    (
         "get_ev_charger_currents_by_sn",
         {"sys_sn": FIXTURE_SYS_SN},
         "getEvChargerCurrentsBySn",
@@ -110,10 +104,42 @@ async def test_get_endpoint_sends_query_and_parses_fixture(
 async def test_get_last_power_data_maps_nested_details(api):
     power = await api.get_last_power_data(FIXTURE_SYS_SN)
 
-    assert power.ppv == 3120.0
-    assert power.ppv_detail.ppv1 == 1600.0
-    assert power.pgrid_detail.pmeter_l1 == -480.0
-    assert power.pev_detail.ev1_power == 0.0
+    assert power.pgrid == 3230.0
+    assert power.pgrid_detail.pmeter_l1 == 1199.0
+    assert power.ppv_detail.pmeter_dc == 0.0
+    assert power.pev_detail.ev1_power is None
+
+
+async def test_get_one_day_power_returns_samples_newest_first(api):
+    samples = await api.get_one_day_power_by_sn(FIXTURE_SYS_SN, QUERY_DATE)
+
+    upload_times = [sample.upload_time for sample in samples]
+    assert upload_times == sorted(upload_times, reverse=True)
+
+
+async def test_get_ev_charger_config_list_without_charger_is_empty(api, fake_cloud):
+    chargers = await api.get_ev_charger_config_list(FIXTURE_SYS_SN)
+
+    assert chargers == []
+    assert fake_cloud.last_request().query == {"sysSn": FIXTURE_SYS_SN}
+
+
+async def test_get_ev_charger_config_list_parses_chargers(api, fake_cloud):
+    fake_cloud.responses["getEvChargerConfigList"] = FakeResponse(
+        {
+            "code": 200,
+            "msg": "Success",
+            "data": [
+                {"evchargerSn": FIXTURE_EVCHARGER_SN, "evchargerModel": "SMILE-EVCT11"}
+            ],
+        }
+    )
+
+    (charger,) = await api.get_ev_charger_config_list(FIXTURE_SYS_SN)
+
+    assert charger == EvCharger(
+        evcharger_sn=FIXTURE_EVCHARGER_SN, evcharger_model="SMILE-EVCT11"
+    )
 
 
 async def test_get_ev_charger_status_maps_state_enum(api):

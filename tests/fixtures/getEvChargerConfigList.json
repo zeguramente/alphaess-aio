@@ -1,10 +1,7 @@
 {
   "code": 200,
   "msg": "Success",
-  "data": [
-    {
-      "evchargerSn": "EV0000000000000",
-      "evchargerModel": "SMILE-EVCT11"
-    }
-  ]
+  "expMsg": null,
+  "data": [],
+  "extra": null
 }

@@ -1,7 +1,9 @@
 {
   "code": 200,
   "msg": "Success",
+  "expMsg": null,
   "data": {
-    "currentsetting": 16.0
-  }
+    "currentsetting": 32.0
+  },
+  "extra": null
 }

@@ -1,12 +1,14 @@
 {
   "code": 200,
   "msg": "Success",
+  "expMsg": null,
   "data": {
-    "batHighCap": 100.0,
     "gridCharge": 0,
     "timeChaf1": "00:00",
-    "timeChae1": "00:00",
-    "timeChaf2": "00:00",
-    "timeChae2": "00:00"
-  }
+    "timeChae1": "23:45",
+    "timeChaf2": "23:45",
+    "timeChae2": "00:00",
+    "batHighCap": 100
+  },
+  "extra": null
 }

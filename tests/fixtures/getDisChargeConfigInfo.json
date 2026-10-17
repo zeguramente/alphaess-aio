@@ -1,12 +1,14 @@
 {
   "code": 200,
   "msg": "Success",
+  "expMsg": null,
   "data": {
-    "batUseCap": 10.0,
     "ctrDis": 0,
     "timeDisf1": "00:00",
     "timeDise1": "00:00",
     "timeDisf2": "00:00",
-    "timeDise2": "00:00"
-  }
+    "timeDise2": "00:00",
+    "batUseCap": 11
+  },
+  "extra": null
 }

@@ -46,8 +46,10 @@ class SystemSummary(AlphaEssModel):
         edischarge: Battery discharge today in kWh.
         today_income: Income today in `money_type`.
         total_income: Total income in `money_type`.
-        eself_consumption: Self-consumption rate in percent.
-        eself_sufficiency: Self-sufficiency rate in percent.
+        eself_consumption: Self-consumption rate as fraction between 0 and 1,
+            although the API documentation states percent.
+        eself_sufficiency: Self-sufficiency rate as fraction between 0 and 1,
+            although the API documentation states percent.
         tree_num: Equivalent number of trees planted.
         carbon_num: CO2 reduction in kg.
         money_type: Currency of the income figures.

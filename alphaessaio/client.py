@@ -55,7 +55,7 @@ class AlphaEssAPI(AlphaEssTransport):
     async def get_one_day_power_by_sn(
         self, sys_sn: str, query_date: datetime.date
     ) -> list[PowerSample]:
-        """Get the power curve of one day.
+        """Get the power curve of one day in 5 minute samples, newest first.
 
         Args:
             sys_sn: System serial number.
