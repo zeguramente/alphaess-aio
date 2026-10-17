@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v1.0.0 (2026-10-17)
+
+### Breaking
+
+* feat!: Refactor/hand maintained client (#8)
+
+* feat!: refactor
+
+* test: add fixtures
+
+* chore: remove fixture creation ([`3fd365f`](https://github.com/zeguramente/alphaess-aio/commit/3fd365f26c3f93d29677fb61e4029b125da8b518))
+
+
 ## v0.2.0 (2024-12-13)
 
 ### Features
