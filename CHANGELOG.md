@@ -1,6 +1,13 @@
 # CHANGELOG
 
 
+## v1.0.1 (2026-10-19)
+
+### Fixes
+
+* fix: add py.typed marker so type checkers use the inline type hints
+
+
 ## v1.0.0 (2026-10-17)
 
 ### Breaking
