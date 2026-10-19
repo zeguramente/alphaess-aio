@@ -42,6 +42,9 @@ version_variables = ["alphaessaio/__init__.py:__version__"]
 [tool.setuptools.packages.find]
 include = ["alphaessaio*"]
 
+[tool.setuptools.package-data]
+alphaessaio = ["py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
