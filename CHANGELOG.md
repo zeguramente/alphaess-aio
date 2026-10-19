@@ -3,9 +3,9 @@
 
 ## v1.0.1 (2026-10-19)
 
-### Fixes
+### Bug Fixes
 
-* fix: add py.typed marker so type checkers use the inline type hints
+* fix: py-typed (#9) ([`6433bfa`](https://github.com/zeguramente/alphaess-aio/commit/6433bfa3b652d570089977174ffdd0e8fed19901))
 
 
 ## v1.0.0 (2026-10-17)
